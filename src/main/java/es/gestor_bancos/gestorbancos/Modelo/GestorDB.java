@@ -12,9 +12,9 @@ public class GestorDB {
     private static final String PASSWORD = "";
     private static Connection conn;
 
+    // Este método inicia la conexión con la base de datos
     public void conectar() {
 
-        // Intentar conectar a la base de datos
         try {
 
             conn = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
@@ -27,72 +27,106 @@ public class GestorDB {
 
     }
 
+    // Este método crea la base de datos junto a todas sus tablas si no existen
     private void crearDB() {
 
         try {
 
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306", USER, PASSWORD);
             Statement statement = conn.createStatement();
-    
-            // Crear la base de datos 'BANCOS' si no existe
+
             String createDatabaseQuery = "CREATE DATABASE IF NOT EXISTS BANCOS";
             statement.executeUpdate(createDatabaseQuery);
     
             statement.execute("USE BANCOS");
     
-            // Crear la tabla 'BANCOS' si no existe
-            String createBancosTableQuery = "CREATE TABLE IF NOT EXISTS BANCOS (" +
-                    "ID INT AUTO_INCREMENT PRIMARY KEY," +
-                    "NOMBRE VARCHAR(255)" +
-                    ")";
-
-            statement.executeUpdate(createBancosTableQuery);
-    
-            // Crear la tabla 'USUARIOS' si no existe
-            String createUsuariosTableQuery = "CREATE TABLE IF NOT EXISTS USUARIOS (" +
-                    "ID INT AUTO_INCREMENT PRIMARY KEY," +
-                    "NOMBRE VARCHAR(255)," +
-                    "APELLIDOS VARCHAR(255)," +
-                    "TELEFONO VARCHAR(15)," +
-                    "PASSWORD VARCHAR(255)," +
-                    ")";
-
-            statement.executeUpdate(createUsuariosTableQuery);
-    
-            // Crear la tabla 'CUENTAS' si no existe
-            String createCuentasTableQuery = "CREATE TABLE IF NOT EXISTS CUENTAS (" +
-                    "ID INT AUTO_INCREMENT PRIMARY KEY," +
-                    "DINERO DECIMAL(10, 2)," +
-                    "USUARIO INT," +
-                    "BANCO INT," +
-                    "FOREIGN KEY (USUARIO) REFERENCES USUARIOS(ID)," +
-                    "FOREIGN KEY (BANCO) REFERENCES BANCOS(ID)" +
-                    ")";
-
-            statement.executeUpdate(createCuentasTableQuery);
-    
-            // Agregar la columna CUENTA_BIZUM como clave foránea a la tabla USUARIOS
-            String alterUsuariosTableQuery = "ALTER TABLE USUARIOS " +
-                    "ADD COLUMN CUENTA_BIZUM INT, " +
-                    "ADD FOREIGN KEY (CUENTA_BIZUM) REFERENCES CUENTAS(ID)";
-
-            statement.executeUpdate(alterUsuariosTableQuery);
+            crearTablas(statement);
 
             conectar();
     
         } catch (SQLException e) {
 
+            e.printStackTrace();
+
         }
 
     }
 
-    private void desconectar(){
+    // Este método crea las tablas de la base de datos si no existen
+    private void crearTablas(Statement statement) throws SQLException {
+
+        crearTablaBancos(statement);
+   
+        empezarACrearTablaUsuarios(statement);
+   
+        crearTablaCuentas(statement);
+   
+        terminarDeCrearTablaUsuarios(statement);
+
+    }
+
+    // Este método crea la tabla "BANCOS" de la base de datos si no existe
+    private void crearTablaBancos(Statement statement) throws SQLException {
+
+        String createBancosTableQuery = "CREATE TABLE IF NOT EXISTS BANCOS (" +
+                "ID INT AUTO_INCREMENT PRIMARY KEY," +
+                "NOMBRE VARCHAR(255)" +
+                ")";
+
+        statement.executeUpdate(createBancosTableQuery);
+
+    }
+
+    // Este método crea la tabla "USUARIOS" de la base de datos si no existe
+    private void empezarACrearTablaUsuarios(Statement statement) throws SQLException {
+
+        String createUsuariosTableQuery = "CREATE TABLE IF NOT EXISTS USUARIOS (" +
+                "ID INT AUTO_INCREMENT PRIMARY KEY," +
+                "NOMBRE VARCHAR(255)," +
+                "APELLIDOS VARCHAR(255)," +
+                "TELEFONO VARCHAR(15)," +
+                "PASSWORD VARCHAR(255)," +
+                ")";
+
+        statement.executeUpdate(createUsuariosTableQuery);
+
+    }
+
+    // Este método crea la tabla "CUENTAS" de la base de datos si no existe
+    private void crearTablaCuentas(Statement statement) throws SQLException {
+
+        String createCuentasTableQuery = "CREATE TABLE IF NOT EXISTS CUENTAS (" +
+                "ID INT AUTO_INCREMENT PRIMARY KEY," +
+                "DINERO DECIMAL(10, 2)," +
+                "USUARIO INT," +
+                "BANCO INT," +
+                "FOREIGN KEY (USUARIO) REFERENCES USUARIOS(ID)," +
+                "FOREIGN KEY (BANCO) REFERENCES BANCOS(ID)" +
+                ")";
+
+        statement.executeUpdate(createCuentasTableQuery);
+
+    }
+
+    // Este método añade a la tabla usuarios una nueva columna "CUENTA_BIZUM" que es una clave foránea que indica la cuenta del usuario que tiene bizum
+    private void terminarDeCrearTablaUsuarios(Statement statement) throws SQLException {
+
+        String alterUsuariosTableQuery = "ALTER TABLE USUARIOS " +
+                "ADD COLUMN CUENTA_BIZUM INT, " +
+                "ADD FOREIGN KEY (CUENTA_BIZUM) REFERENCES CUENTAS(ID)";
+
+        statement.executeUpdate(alterUsuariosTableQuery);
+
+    }
+
+    // Este método finaliza la conexión con la base de datos
+    public void desconectar(){
 
         try {
 
             conn.close();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
 
         }
 
