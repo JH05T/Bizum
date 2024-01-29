@@ -1,16 +1,32 @@
 package es.gestor_bancos.gestorbancos.Modelo;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+@Service
 public class GestorDB {
 
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/BANCOS";
     private static final String USER = "J";
     private static final String PASSWORD = "";
     private static Connection conn;
+    private static UsuarioRepository usuarios;
+    private static CuentaRepository cuentas;
+    private static BancoRepository bancos;
+    
+    @Autowired
+    public GestorDB(UsuarioRepository usuarios, CuentaRepository cuentas, BancoRepository bancos) {
+
+        this.usuarios = usuarios;
+        this.cuentas = cuentas;
+        this.bancos = bancos;
+
+    }
 
     // Este método inicia la conexión con la base de datos
     public void conectar() {
