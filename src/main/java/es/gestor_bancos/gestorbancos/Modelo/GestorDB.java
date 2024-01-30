@@ -15,9 +15,9 @@ public class GestorDB {
     private static final String USER = "J";
     private static final String PASSWORD = "";
     private static Connection conn;
-    private static UsuarioRepository usuarios;
-    private static CuentaRepository cuentas;
-    private static BancoRepository bancos;
+    private UsuarioRepository usuarios;
+    private CuentaRepository cuentas;
+    private BancoRepository bancos;
     
     @Autowired
     public GestorDB(UsuarioRepository usuarios, CuentaRepository cuentas, BancoRepository bancos) {
