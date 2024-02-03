@@ -1,9 +1,9 @@
-package es.gestor_bancos.gestorbancos.Modelo;
+package es.gestor_bancos.gestorbancos.modelo;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-@Table("USUARIOS")
+@Entity
 public class Usuario {
 
     @Id
@@ -17,6 +17,16 @@ public class Usuario {
     public Usuario(int id, String nombre, String apellidos, String telefono, String password, int cuentaBizum) {
 
         this.id = id;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.password = password;
+        this.cuentaBizum = cuentaBizum;
+
+    }
+
+    public Usuario(String nombre, String apellidos, String telefono, String password, int cuentaBizum) {
+
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;

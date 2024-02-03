@@ -1,9 +1,9 @@
-package es.gestor_bancos.gestorbancos.Modelo;
+package es.gestor_bancos.gestorbancos.modelo;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-@Table("BANCOS")
+@Entity
 public class Banco {
 
     @Id
@@ -17,6 +17,11 @@ public class Banco {
 
     }
 
+    public Banco(String nombre) {
+
+        this.nombre = nombre;
+
+    }
 
     /*
      * Getters & Setters

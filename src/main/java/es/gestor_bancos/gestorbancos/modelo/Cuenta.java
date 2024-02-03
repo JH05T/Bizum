@@ -1,9 +1,9 @@
-package es.gestor_bancos.gestorbancos.Modelo;
+package es.gestor_bancos.gestorbancos.modelo;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-@Table("CUENTAS")
+@Entity
 public class Cuenta {
 
     @Id
@@ -15,6 +15,14 @@ public class Cuenta {
     public Cuenta(int id, double dinero, int usuario, int banco) {
 
         this.id = id;
+        this.dinero = dinero;
+        this.usuario = usuario;
+        this.banco = banco;
+
+    }
+
+    public Cuenta(double dinero, int usuario, int banco) {
+
         this.dinero = dinero;
         this.usuario = usuario;
         this.banco = banco;

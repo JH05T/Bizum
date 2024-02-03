@@ -1,4 +1,4 @@
-package es.gestor_bancos.gestorbancos.Modelo;
+package es.gestor_bancos.gestorbancos.modelo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
