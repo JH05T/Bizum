@@ -1,17 +1,30 @@
 package es.gestor_bancos.gestorbancos.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "USUARIO")
 public class Usuario {
 
     @Id
     private int id;
+
+    @Column
     private String nombre;
+
+    @Column
     private String apellidos;
+
+    @Column
     private String telefono;
+
+    @Column
     private String password;
+
+    @Column
     private int cuentaBizum;
 
     public Usuario(int id, String nombre, String apellidos, String telefono, String password, int cuentaBizum) {
