@@ -43,6 +43,19 @@ public class GestorDB {
 
     }
 
+    // Este método finaliza la conexión con la base de datos
+    public void desconectar(){
+
+        try {
+
+            conn.close();
+
+        } catch (Exception e) {
+
+        }
+
+    }
+
     // Este método crea la base de datos junto a todas sus tablas si no existen
     private void crearDB() {
 
@@ -134,19 +147,6 @@ public class GestorDB {
                 "ADD FOREIGN KEY (CUENTA_BIZUM) REFERENCES CUENTAS(ID);";
 
         statement.executeUpdate(alterUsuariosTableQuery);
-
-    }
-
-    // Este método finaliza la conexión con la base de datos
-    public void desconectar(){
-
-        try {
-
-            conn.close();
-
-        } catch (Exception e) {
-
-        }
 
     }
 
