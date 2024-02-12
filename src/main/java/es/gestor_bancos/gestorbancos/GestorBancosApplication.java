@@ -16,10 +16,11 @@ public class GestorBancosApplication {
 	public static void main(String[] args) {
 
 		ConfigurableApplicationContext contexto = SpringApplication.run(GestorBancosApplication.class, args);
-		GestorDB gestorDB = contexto.getBean(GestorDB.class);
+
+		/*GestorDB gestorDB = contexto.getBean(GestorDB.class);
 		gestorDB.conectar();
 		gestorDB.desconectar();
-		contexto.close();
+		contexto.close();*/
 
 	}
 

@@ -22,23 +22,27 @@ public class Usuario {
     private String telefono;
 
     @Column
+    private String email;
+
+    @Column
     private String password;
 
     @Column
     private int cuentaBizum;
 
-    public Usuario(int id, String nombre, String apellidos, String telefono, String password, int cuentaBizum) {
+    public Usuario(int id, String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
 
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
+        this.email = email;
         this.password = password;
         this.cuentaBizum = cuentaBizum;
 
     }
 
-    public Usuario(String nombre, String apellidos, String telefono, String password, int cuentaBizum) {
+    public Usuario(String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
 
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -83,6 +87,14 @@ public class Usuario {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

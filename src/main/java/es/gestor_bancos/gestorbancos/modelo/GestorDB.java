@@ -116,6 +116,7 @@ public class GestorDB {
                 "NOMBRE VARCHAR(255)," +
                 "APELLIDOS VARCHAR(255)," +
                 "TELEFONO VARCHAR(15)," +
+                "EMAIL VARCHAR(255)" +
                 "PASSWORD VARCHAR(255)" +
                 ");";
 

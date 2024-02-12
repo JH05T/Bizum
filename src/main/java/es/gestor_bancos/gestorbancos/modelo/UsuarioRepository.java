@@ -15,6 +15,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query("SELECT u FROM Usuario u WHERE u.id = :id")
     Optional<Usuario> buscarDatosPorId(@Param("id") int id);
 
+    // Busca un usuario a partir del email; devuelve todos los datos
+    @Query("SELECT u FROM Usuario u WHERE u.email = :email")
+    Optional<Usuario> buscarDatosPorEmail(@Param("email") int email);
+
     // Busca un usuario a partir del id; devuelve la contraseña
     @Query("SELECT u.password FROM Usuario u WHERE u.id = :id")
     String buscarPasswordPorId(@Param("id") int id);
@@ -32,19 +36,20 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     int buscarCuentaBizumPorTelefono(@Param("telefono") String telefono);
 
     // Añade un nuevo usuario
-    default void insertar(String nombre, String apellidos, String telefono, String password, int cuentaBizum) {
+    default void insertar(String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
 
-        Usuario usuario = new Usuario(nombre, apellidos, telefono, password, cuentaBizum);
+        Usuario usuario = new Usuario(nombre, apellidos, telefono, email, password, cuentaBizum);
         save(usuario);
 
     }
 
     // Actualiza los datos de un usuario a partir del id
-    default void modificar(Integer id, String nombre, String apellidos, String telefono, String password, int cuentaBizum) {
+    default void modificar(Integer id, String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
         Usuario usuario = findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         usuario.setNombre(nombre);
         usuario.setApellidos(apellidos);
         usuario.setTelefono(telefono);
+        usuario.setEmail(email);
         usuario.setPassword(password);
         usuario.setCuentaBizum(cuentaBizum);
         save(usuario);
