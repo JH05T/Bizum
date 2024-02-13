@@ -1,7 +1,9 @@
-package es.gestor_bancos.gestorbancos.modelo;
+package es.gestor_bancos.gestorbancos.modelo.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,17 +12,21 @@ import jakarta.persistence.Table;
 public class Cuenta {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    
-    @Column
+    @Column(name = "DINERO",nullable = true, precision = 10, scale = 2 )
     private double dinero;
     
-    @Column
+    @Column(name = "USUARIO", nullable = true)
     private int usuario;
     
-    @Column
+    @Column(name = "BANCO", nullable = true)
     private int banco;
+
+    public Cuenta(){
+
+    }
 
     public Cuenta(int id, double dinero, int usuario, int banco) {
 
@@ -38,6 +44,13 @@ public class Cuenta {
         this.banco = banco;
 
     }
+
+    @Override
+	public String toString() {
+
+		return "Cuenta [id=" + id + ", dinero=" + dinero + ", usuario=" + usuario + ", banco=" + banco + "]";
+
+	}
 
     
     /*

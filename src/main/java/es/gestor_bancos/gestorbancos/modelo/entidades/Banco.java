@@ -1,7 +1,9 @@
-package es.gestor_bancos.gestorbancos.modelo;
+package es.gestor_bancos.gestorbancos.modelo.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,10 +12,15 @@ import jakarta.persistence.Table;
 public class Banco {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(name = "NOMBRE", nullable = true,length = 255)
     private String nombre;
+
+    public Banco(){
+
+    }
 
     public Banco(int id, String nombre) {
 
@@ -28,6 +35,14 @@ public class Banco {
 
     }
 
+    @Override
+	public String toString() {
+
+		return "Banco [id=" + id + ", nombre=" + nombre + "]";
+        
+	}
+
+    
     /*
      * Getters & Setters
      */

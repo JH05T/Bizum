@@ -1,7 +1,9 @@
-package es.gestor_bancos.gestorbancos.modelo;
+package es.gestor_bancos.gestorbancos.modelo.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,25 +12,30 @@ import jakarta.persistence.Table;
 public class Usuario {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(name = "NOMBRE",nullable = true,length = 255)
     private String nombre;
 
-    @Column
+    @Column(name = "APELLIDOS",nullable = true,length = 255)
     private String apellidos;
 
-    @Column
+    @Column(name = "TELEFONO",nullable = true,length = 255)
     private String telefono;
 
-    @Column
+    @Column(name = "EMAIL",nullable = true,length = 15)
     private String email;
 
-    @Column
+    @Column(name = "PASSWORD",nullable = true,length = 255)
     private String password;
 
-    @Column
+    @Column(name = "CUENTA_BIZUM",nullable = true)
     private int cuentaBizum;
+
+    public Usuario() {
+
+    }
 
     public Usuario(int id, String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
 
@@ -51,6 +58,13 @@ public class Usuario {
         this.cuentaBizum = cuentaBizum;
 
     }
+
+    @Override
+	public String toString() {
+
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", email=" + email + ", password=" + password + ", cuentaBizum=" + cuentaBizum + "]";
+
+	}
 
 
     /*

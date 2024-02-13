@@ -3,6 +3,14 @@ package es.gestor_bancos.gestorbancos.modelo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.gestor_bancos.gestorbancos.modelo.repositorios.BancoRepository;
+import es.gestor_bancos.gestorbancos.modelo.repositorios.CuentaRepository;
+import es.gestor_bancos.gestorbancos.modelo.repositorios.UsuarioRepository;
+
+import es.gestor_bancos.gestorbancos.modelo.entidades.Banco;
+import es.gestor_bancos.gestorbancos.modelo.entidades.Cuenta;
+import es.gestor_bancos.gestorbancos.modelo.entidades.Usuario;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -11,22 +19,28 @@ import java.sql.Statement;
 @Service
 public class GestorDB {
 
+    /* * * * * * * * * * * * * *
+     * CONSTANTES Y VARIABLES  *
+     * * * * * * * * * * * * * */
+
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/BANCOS";
     private static final String USER = "J";
     private static final String PASSWORD = "";
     private static Connection conn;
+
+    @Autowired
     private UsuarioRepository usuarios;
-    private CuentaRepository cuentas;
-    private BancoRepository bancos;
     
     @Autowired
-    public GestorDB(UsuarioRepository usuarios, CuentaRepository cuentas, BancoRepository bancos) {
-
-        this.usuarios = usuarios;
-        this.cuentas = cuentas;
-        this.bancos = bancos;
-
-    }
+    private CuentaRepository cuentas;
+    
+    @Autowired
+    private BancoRepository bancos;
+    
+    /* * * * * * * * * * *
+     * MÉTODOS PÚBLICOS  *
+     * * * * * * * * * * */
+    
 
     // Este método inicia la conexión con la base de datos
     public void conectar() {
@@ -55,6 +69,10 @@ public class GestorDB {
         }
 
     }
+
+    /* * * * * * * * * * *
+     * MÉTODOS PRIVADOS  *
+     * * * * * * * * * * */
 
     // Este método crea la base de datos junto a todas sus tablas si no existen
     private void crearDB() {
@@ -116,7 +134,7 @@ public class GestorDB {
                 "NOMBRE VARCHAR(255)," +
                 "APELLIDOS VARCHAR(255)," +
                 "TELEFONO VARCHAR(15)," +
-                "EMAIL VARCHAR(255)" +
+                "EMAIL VARCHAR(255)," +
                 "PASSWORD VARCHAR(255)" +
                 ");";
 
