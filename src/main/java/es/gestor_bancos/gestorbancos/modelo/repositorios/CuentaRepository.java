@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import es.gestor_bancos.gestorbancos.modelo.entidades.Banco;
 import es.gestor_bancos.gestorbancos.modelo.entidades.Cuenta;
 
 @Repository
@@ -16,7 +17,15 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Integer> {
     // Busca una cuenta a partir de su id; devuelve todos los datos
     @Query("SELECT c FROM Cuenta c WHERE c.id = :id")
     Optional<Cuenta> buscarDatosPorId(@Param("id") int id);
-    
+
+    // Busca una cuenta a partir de su id; devuelve todos los datos
+    @Query("SELECT c FROM Cuenta c")
+    List<Cuenta> listarCuentas();
+
+    // Busca las cuentas de un banco; devuevlve la cuenta
+    @Query("SELECT c FROM Cuenta c WHERE c.banco = :banco")
+    List<Cuenta> buscarCuentaPorBanco(@Param("banco") Banco banco);
+
     // Busca las cuentas de un usuario; devuevlve el dinero y el banco de cada cuenta
     @Query("SELECT c.banco FROM Cuenta c WHERE c.usuario = :usuario")
     List<Integer> buscarBancoPorUsuario(@Param("usuario") int usuario);

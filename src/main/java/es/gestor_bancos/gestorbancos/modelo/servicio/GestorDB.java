@@ -90,6 +90,8 @@ public class GestorDB implements IGestorDB {
 
         insertarCuentas();
 
+        agregarCuentasBizumUsuarios();
+
     }
 
     /* * * * * * * * * * * * * *
@@ -116,7 +118,7 @@ public class GestorDB implements IGestorDB {
     @Override
     public List<Cuenta> listarCuentas() {
         
-        return cuentas.findAll();
+        return cuentas.listarCuentas();
 
     }
 
@@ -287,12 +289,12 @@ public class GestorDB implements IGestorDB {
     // Este método inserta datos de prueba en la tabla "cuentas"
     private void insertarCuentas() {
     
-        Banco banco1 = bancos.findById(1).orElse(null);
-        Banco banco2 = bancos.findById(2).orElse(null);
+        Banco banco1 = bancos.buscarDatosPorId(1).orElse(null);
+        Banco banco2 = bancos.buscarDatosPorId(2).orElse(null);
     
         for (int i = 1; i <= 5; i++) {
         
-            Usuario usuario = usuarios.findById(i).orElse(null);
+            Usuario usuario = usuarios.buscarDatosPorId(i).orElse(null);
         
             for (int j = 1; j <= 2; j++) {
             
@@ -320,5 +322,25 @@ public class GestorDB implements IGestorDB {
     
     }
 
+    // Este método actualiza la cuentaBizum de todos los usuarios a su cuenta del banco con ID 1
+    private void agregarCuentasBizumUsuarios() {
+
+        Banco banco1 = bancos.findById(1).orElse(null);
+
+        List<Cuenta> cuentasBanco1 = cuentas.buscarCuentaPorBanco(banco1);
+
+        for (Cuenta cuenta : cuentasBanco1) {
+
+            Usuario usuario = cuenta.getUsuario();
+
+            usuario.setCuentaBizum(cuenta);
+
+            usuarios.save(usuario);
+
+        }
+
+        usuarios.flush();
+
+    }
 
 }

@@ -1,6 +1,7 @@
 package es.gestor_bancos.gestorbancos.modelo.repositorios;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,7 @@ public interface BancoRepository extends JpaRepository<Banco, Integer> {
 
     // Busca un banco a partir de su id; devuelve el nombre del banco
     @Query("SELECT b FROM Banco b WHERE b.id = :id")
-    String buscarNombrePorId(@Param("id") int id);
+    Optional<Banco> buscarDatosPorId(@Param("id") int id);
 
     // Busca bancos a partir de su nombre; devuelve la id de los bancos
     @Query("SELECT b.id FROM Banco b WHERE b.nombre = :nombre")
