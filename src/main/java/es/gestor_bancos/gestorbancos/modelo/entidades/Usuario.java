@@ -5,39 +5,43 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "USUARIO")
+@Table(name = "usuarios")
 public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "NOMBRE",nullable = true,length = 255)
+    @Column(name = "nombre",nullable = true,length = 255)
     private String nombre;
 
-    @Column(name = "APELLIDOS",nullable = true,length = 255)
+    @Column(name = "apellidos",nullable = true,length = 255)
     private String apellidos;
 
-    @Column(name = "TELEFONO",nullable = true,length = 255)
+    @Column(name = "telefono",nullable = true,length = 255)
     private String telefono;
 
-    @Column(name = "EMAIL",nullable = true,length = 15)
+    @Column(name = "email",nullable = true,length = 15)
     private String email;
 
-    @Column(name = "PASSWORD",nullable = true,length = 255)
+    @Column(name = "password",nullable = true,length = 255)
     private String password;
 
-    @Column(name = "CUENTA_BIZUM",nullable = true)
-    private int cuentaBizum;
+    @ManyToOne
+    @JoinColumn(name = "cuentaBizum", referencedColumnName = "id")
+    private Cuenta cuentaBizum;
+
 
     public Usuario() {
 
     }
 
-    public Usuario(int id, String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
+    public Usuario(int id, String nombre, String apellidos, String telefono, String email, String password, Cuenta cuentaBizum) {
 
         this.id = id;
         this.nombre = nombre;
@@ -49,7 +53,7 @@ public class Usuario {
 
     }
 
-    public Usuario(String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
+    public Usuario(String nombre, String apellidos, String telefono, String email, String password, Cuenta cuentaBizum) {
 
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -119,11 +123,11 @@ public class Usuario {
         this.password = password;
     }
 
-    public int getCuentaBizum() {
+    public Cuenta getCuentaBizum() {
         return cuentaBizum;
     }
 
-    public void setCuentaBizum(int cuentaBizum) {
+    public void setCuentaBizum(Cuenta cuentaBizum) {
         this.cuentaBizum = cuentaBizum;
     }
     

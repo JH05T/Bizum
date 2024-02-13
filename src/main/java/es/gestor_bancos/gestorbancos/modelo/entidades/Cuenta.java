@@ -5,30 +5,34 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "CUENTA")
+@Table(name = "cuentas")
 public class Cuenta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(name = "DINERO",nullable = true, precision = 10, scale = 2 )
+    @Column(name = "dinero",nullable = true)
     private double dinero;
     
-    @Column(name = "USUARIO", nullable = true)
-    private int usuario;
+    @ManyToOne
+    @JoinColumn(name = "usuario", nullable = true)
+    private Usuario usuario;
     
-    @Column(name = "BANCO", nullable = true)
-    private int banco;
+    @ManyToOne
+    @JoinColumn(name = "banco", nullable = true)
+    private Banco banco;
 
     public Cuenta(){
 
     }
 
-    public Cuenta(int id, double dinero, int usuario, int banco) {
+    public Cuenta(int id, double dinero, Usuario usuario, Banco banco) {
 
         this.id = id;
         this.dinero = dinero;
@@ -37,7 +41,7 @@ public class Cuenta {
 
     }
 
-    public Cuenta(double dinero, int usuario, int banco) {
+    public Cuenta(double dinero, Usuario usuario, Banco banco) {
 
         this.dinero = dinero;
         this.usuario = usuario;
@@ -69,16 +73,16 @@ public class Cuenta {
     public void setDinero(double dinero) {
         this.dinero = dinero;
     }
-    public int getUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
-    public void setUsuario(int usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    public int getBanco() {
+    public Banco getBanco() {
         return banco;
     }
-    public void setBanco(int banco) {
+    public void setBanco(Banco banco) {
         this.banco = banco;
     }
 

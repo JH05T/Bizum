@@ -38,24 +38,23 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     int buscarCuentaBizumPorTelefono(@Param("telefono") String telefono);
 
     // Añade un nuevo usuario
-    default void insertar(String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
+    default void insertar(Usuario usuario) {
 
-        Usuario usuario = new Usuario(nombre, apellidos, telefono, email, password, cuentaBizum);
         save(usuario);
 
     }
 
     // Actualiza los datos de un usuario a partir del id
-    default void modificar(Integer id, String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
-        Usuario usuario = findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        usuario.setNombre(nombre);
-        usuario.setApellidos(apellidos);
-        usuario.setTelefono(telefono);
-        usuario.setEmail(email);
-        usuario.setPassword(password);
-        usuario.setCuentaBizum(cuentaBizum);
-        save(usuario);
-    }
+    // default void modificar(Integer id, String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
+    //     Usuario usuario = findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    //     usuario.setNombre(nombre);
+    //     usuario.setApellidos(apellidos);
+    //     usuario.setTelefono(telefono);
+    //     usuario.setEmail(email);
+    //     usuario.setPassword(password);
+    //     usuario.setCuentaBizum(cuentaBizum);
+    //     save(usuario);
+    // }
 
     // Borra un usuario a partir del id
     default void eliminar(Integer id) {

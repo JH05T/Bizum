@@ -30,19 +30,20 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Integer> {
     double buscarDineroPorUsuarioYBanco(@Param("usuario") int usuario, @Param("banco") int banco);
 
     // Añade una nueva cuenta
-    default void insertarCuenta(double dinero, int usuario, int banco) {
-        Cuenta cuenta = new Cuenta(dinero, usuario, banco);
+    default void insertar(Cuenta cuenta) {
+
         save(cuenta);
+
     }
     
     // Actualiza los datos de una cuenta a partir del id
-    default void modificar(Integer id, double dinero, int usuario, int banco) {
-        Cuenta cuenta = findById(id).orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
-        cuenta.setDinero(dinero);
-        cuenta.setUsuario(usuario);
-        cuenta.setBanco(banco);
-        save(cuenta);
-    }
+    // default void modificar(Integer id, double dinero, int usuario, int banco) {
+    //     Cuenta cuenta = findById(id).orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
+    //     cuenta.setDinero(dinero);
+    //     cuenta.setUsuario(usuario);
+    //     cuenta.setBanco(banco);
+    //     save(cuenta);
+    // }
     
     // Actualiza el dinero del banco a partir de su id
     default void modificarDinero(Integer id, double dinero) {

@@ -21,9 +21,10 @@ public interface BancoRepository extends JpaRepository<Banco, Integer> {
     List<Integer> buscarIdPorNombre(@Param("nombre") String nombre);
 
     // Añade un nuevo banco
-    default void insertar(String nombre) {
-        Banco banco = new Banco(nombre);
+    default void insertar(Banco banco) {
+
         save(banco);
+
     }
 
     // Actualiza el nombre del banco a partir del id

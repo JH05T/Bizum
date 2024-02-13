@@ -8,14 +8,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "BANCO")
+@Table(name = "bancos")
 public class Banco {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "NOMBRE", nullable = true,length = 255)
+    @Column(name = "nombre", nullable = true,length = 255)
     private String nombre;
 
     public Banco(){

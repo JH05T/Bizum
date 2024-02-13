@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
-import es.gestor_bancos.gestorbancos.modelo.GestorDB;
+import es.gestor_bancos.gestorbancos.modelo.servicio.GestorDB;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "es.gestor_bancos.gestorbancos.modelo")
@@ -17,10 +17,14 @@ public class GestorBancosApplication {
 
 		ConfigurableApplicationContext contexto = SpringApplication.run(GestorBancosApplication.class, args);
 
-		/*GestorDB gestorDB = contexto.getBean(GestorDB.class);
+		GestorDB gestorDB = contexto.getBean(GestorDB.class);
+
 		gestorDB.conectar();
 		gestorDB.desconectar();
-		contexto.close();*/
+
+		gestorDB.insertarDatos();
+
+		contexto.close();
 
 	}
 
