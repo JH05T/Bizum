@@ -110,12 +110,18 @@ public class GestorDB implements IGestorDB {
     }
 
     @Override
-    public Usuario buscarUsuarioPorTelefono(String telefono){
+    public Usuario buscarUsuarioPorTelefono(String telefono) {
 
         return usuarios.buscarUsuarioPorTelefono(telefono);
 
     }
 
+    @Override
+    public Usuario buscarUsuarioPorEmail(String email) {
+
+        return usuarios.buscarUsuarioPorEmail(email);
+        
+    }
 
     @Override
     public void insertarUsuario(Usuario usuario) {

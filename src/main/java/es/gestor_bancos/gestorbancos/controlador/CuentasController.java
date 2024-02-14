@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.gestor_bancos.gestorbancos.modelo.entidades.Banco;
@@ -19,6 +20,7 @@ import es.gestor_bancos.gestorbancos.modelo.servicio.IGestorDB;
 import jakarta.annotation.PostConstruct;
 
 @Controller
+@SessionAttributes("user")
 public class CuentasController {
 
     @Autowired
@@ -38,9 +40,9 @@ public class CuentasController {
     }
     
     @GetMapping("/cuentas")
-    public String listarCuentasUsuario(Model modelo) {
+    public String listarCuentasUsuario(@ModelAttribute("user") Usuario user, Model modelo) {
 
-        usuario = gestorDB.buscarUsuarioPorId(1);
+        usuario = user;
 
         modelo.addAttribute("usuario", usuario);
         modelo.addAttribute("cuentas", gestorDB.listarCuentasDeUsuario(usuario));
@@ -129,6 +131,12 @@ public class CuentasController {
             if (receptor == null){
 
                 redirectAttributes.addFlashAttribute("error", "No existe ningún usuario con ese número de teléfono.");
+
+                return "redirect:/cuentas/bizum/" + id;
+
+            } else if (receptor.getCuentaBizum() == null) {
+                
+                redirectAttributes.addFlashAttribute("error", "El usuario con ese número de teléfono no tiene ninguna cuenta vinculada para recibir Bizum.");
 
                 return "redirect:/cuentas/bizum/" + id;
 

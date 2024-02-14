@@ -18,6 +18,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query("SELECT u FROM Usuario u WHERE u.telefono = :telefono")
     Usuario buscarUsuarioPorTelefono(@Param("telefono") String telefono);
 
+    // Busca un usuario a partir del email; devuelve el usuario
+    @Query("SELECT u FROM Usuario u WHERE u.email = :email")
+    Usuario buscarUsuarioPorEmail(@Param("email") String email);
+
     // Añade un nuevo usuario
     default void insertar(Usuario usuario) {
 
@@ -40,9 +44,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     }
 
-    // // Busca un usuario a partir del email; devuelve todos los datos
-    // @Query("SELECT u FROM Usuario u WHERE u.email = :email")
-    // Optional<Usuario> buscarDatosPorEmail(@Param("email") int email);
 
     // // Busca un usuario a partir del id; devuelve la contraseña
     // @Query("SELECT u.password FROM Usuario u WHERE u.id = :id")

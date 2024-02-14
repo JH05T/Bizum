@@ -18,6 +18,8 @@ public interface IGestorDB {
 
   public Usuario buscarUsuarioPorTelefono(String telefono);
 
+  public Usuario buscarUsuarioPorEmail(String email);
+
   public void insertarUsuario(Usuario usuario);
 
   public void modificarUsuario(Usuario usuario);
