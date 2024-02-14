@@ -16,7 +16,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GestorDB implements IGestorDB {
@@ -104,9 +103,31 @@ public class GestorDB implements IGestorDB {
  * * * * * * * * * * * * * */
 
     @Override
+    public Usuario buscarUsuarioPorId(int id) {
+
+        return usuarios.buscarUsuarioPorId(id);
+
+    }
+
+    @Override
+    public Usuario buscarUsuarioPorTelefono(String telefono){
+
+        return usuarios.buscarUsuarioPorTelefono(telefono);
+
+    }
+
+
+    @Override
     public void insertarUsuario(Usuario usuario) {
 
         usuarios.insertar(usuario);
+
+    }
+
+    @Override
+    public void modificarUsuario(Usuario usuario){
+
+        usuarios.modificar(usuario);
 
     }
 
@@ -168,9 +189,9 @@ public class GestorDB implements IGestorDB {
  * * * * * * * * * * * * */
 
     @Override
-    public Optional<Banco> buscarBancoPorId(int id) {
+    public Banco buscarBancoPorId(int id) {
 
-        return bancos.buscarDatosPorId(id);
+        return bancos.buscarBancoPorId(id);
 
     }
 
@@ -256,8 +277,8 @@ public class GestorDB implements IGestorDB {
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
                 "nombre VARCHAR(255)," +
                 "apellidos VARCHAR(255)," +
-                "telefono VARCHAR(15)," +
-                "email VARCHAR(255)," +
+                "telefono VARCHAR(15) UNIQUE," +
+                "email VARCHAR(255) UNIQUE," +
                 "password VARCHAR(255)" +
                 ");";
 
@@ -335,13 +356,13 @@ public class GestorDB implements IGestorDB {
     // Este método inserta datos de prueba en la tabla "cuentas"
     private void insertarCuentas() {
     
-        Banco banco1 = buscarBancoPorId(1).orElse(null);
-        Banco banco2 = buscarBancoPorId(2).orElse(null);
-        Banco banco3 = buscarBancoPorId(3).orElse(null);
+        Banco banco1 = buscarBancoPorId(1);
+        Banco banco2 = buscarBancoPorId(2);
+        Banco banco3 = buscarBancoPorId(3);
     
         for (int i = 1; i <= 5; i++) {
         
-            Usuario usuario = usuarios.buscarDatosPorId(i).orElse(null);
+            Usuario usuario = buscarUsuarioPorId(i);
         
             for (int j = 1; j <= 3; j++) {
             

@@ -19,8 +19,8 @@ public class GestorBancosApplication {
 
 		GestorDB gestorDB = contexto.getBean(GestorDB.class);
 
-		// gestorDB.conectar();
-		// gestorDB.desconectar();
+		gestorDB.conectar();
+		gestorDB.desconectar();
 
 		// gestorDB.insertarDatos();
 

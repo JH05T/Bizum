@@ -1,7 +1,6 @@
 package es.gestor_bancos.gestorbancos.modelo.servicio;
 
 import java.util.List;
-import java.util.Optional;
 
 import es.gestor_bancos.gestorbancos.modelo.entidades.Banco;
 import es.gestor_bancos.gestorbancos.modelo.entidades.Cuenta;
@@ -15,7 +14,13 @@ public interface IGestorDB {
  *                         *
  * * * * * * * * * * * * * */
 
+  public Usuario buscarUsuarioPorId(int id);
+
+  public Usuario buscarUsuarioPorTelefono(String telefono);
+
   public void insertarUsuario(Usuario usuario);
+
+  public void modificarUsuario(Usuario usuario);
 
 /* * * * * * * * * * * * *
  *                       *
@@ -41,7 +46,7 @@ public interface IGestorDB {
  *                       *
  * * * * * * * * * * * * */
 
-  public Optional<Banco> buscarBancoPorId(int id);
+  public Banco buscarBancoPorId(int id);
 
   public void insertarBanco(Banco banco);
   

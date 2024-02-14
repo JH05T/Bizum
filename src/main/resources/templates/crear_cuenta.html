@@ -6,7 +6,7 @@
 
     <meta charset="utf-8">
 
-    <title>Gestión de Cuentas</title>
+    <title>Crear Cuenta</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -35,8 +35,10 @@
                             </div>
                         </div>
                     
+                        <div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
+
                         <div class="box-footer text-center">
-                            <button class="btn btn-success">Guardar</button>
+                            <button class="btn btn-success btn-block">Guardar</button>
                         </div>
                     </form>
                 </div>
