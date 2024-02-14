@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import es.gestor_bancos.gestorbancos.modelo.servicio.GestorDB;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "es.gestor_bancos.gestorbancos.modelo")
+@ComponentScan(basePackages = {"es.gestor_bancos.gestorbancos.modelo", "es.gestor_bancos.gestorbancos.controlador"})
 @EntityScan(basePackages = "es.gestor_bancos.gestorbancos.modelo")
 public class GestorBancosApplication {
 
@@ -19,12 +19,12 @@ public class GestorBancosApplication {
 
 		GestorDB gestorDB = contexto.getBean(GestorDB.class);
 
-		gestorDB.conectar();
-		gestorDB.desconectar();
+		// gestorDB.conectar();
+		// gestorDB.desconectar();
 
-		gestorDB.insertarDatos();
+		// gestorDB.insertarDatos();
 
-		contexto.close();
+		// contexto.close();
 
 	}
 

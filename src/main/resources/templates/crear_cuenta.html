@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>Gestión de Cuentas</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <br>
+        <div class="row">
+            <br>
+            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+                <h1 class="text-center">Crea Una Nueva Cuenta</h1>
+                <div class="card-body">
+                    <form th:action="@{/cuentas}" th:object="${cuenta}" method="POST">
+                        <div class="form-group">
+                            <label>Saldo inicial : </label>
+                            <input type="number" step="0.01" name="saldo" th:field="*{dinero}" value="0" min="0" class="form-control" required onkeydown="return event.key !== '-' && event.key !== 'e'">
+                        </div>
+                     
+                        <div class="form-group">
+                            <label>Banco : </label>
+                            <div th:each="banco : ${bancos}">
+                                <input type="radio" th:id="${{banco.id}}" th:value="${{banco.id}}" th:field="*{banco}" />
+                                <label th:for="${{banco.id}}" th:text="${banco.nombre}"></label>
+                            </div>
+                        </div>
+                    
+                        <div class="box-footer text-center">
+                            <button class="btn btn-success">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+     </div>
+
+</body>
+</html>

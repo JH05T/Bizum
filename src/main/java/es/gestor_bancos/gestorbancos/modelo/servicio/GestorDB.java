@@ -16,17 +16,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GestorDB implements IGestorDB {
 
-    /* * * * * * * * * * * * * * * * * *
-     * * * * * * * * * * * * * * * * * *
-     * *                             * *
-     * *   CONSTANTES Y VARIABLES    * *
-     * *                             * *
-     * * * * * * * * * * * * * * * * * *
-     * * * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * * * *
+ * *                             * *
+ * *   CONSTANTES Y VARIABLES    * *
+ * *                             * *
+ * * * * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * * * */
 
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/bancos";
     private static final String USER = "J";
@@ -44,13 +45,13 @@ public class GestorDB implements IGestorDB {
 
 
     
-    /* * * * * * * * * * * * * * *
-     * * * * * * * * * * * * * * *
-     * *                       * *
-     * *   MÉTODOS PÚBLICOS    * *
-     * *                       * *
-     * * * * * * * * * * * * * * *
-     * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * *
+ * *                       * *
+ * *   MÉTODOS PÚBLICOS    * *
+ * *                       * *
+ * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * */
 
 
     // Este método inicia la conexión con la base de datos
@@ -94,11 +95,13 @@ public class GestorDB implements IGestorDB {
 
     }
 
-    /* * * * * * * * * * * * * *
-     *                         *
-     *   GESTIÓN DE USUARIOS   *
-     *                         *
-     * * * * * * * * * * * * * */
+
+
+/* * * * * * * * * * * * * *
+ *                         *
+ *   GESTIÓN DE USUARIOS   *
+ *                         *
+ * * * * * * * * * * * * * */
 
     @Override
     public void insertarUsuario(Usuario usuario) {
@@ -109,16 +112,30 @@ public class GestorDB implements IGestorDB {
 
 
     
-    /* * * * * * * * * * * * *
-     *                       *
-     *   GESTIÓN DE CUENTAS  *
-     *                       *
-     * * * * * * * * * * * * */
+/* * * * * * * * * * * * *
+ *                       *
+ *   GESTIÓN DE CUENTAS  *
+ *                       *
+ * * * * * * * * * * * * */
 
     @Override
-    public List<Cuenta> listarCuentas() {
+    public Cuenta buscarCuentaPorId(int id) {
+
+        return cuentas.buscarCuentaPorId(id);
+
+    }
+  
+    @Override
+    public List<Cuenta> buscarCuentaPorBanco(Banco banco) {
+
+        return cuentas.buscarCuentaPorBanco(banco);
+
+    }
+
+    @Override
+    public List<Cuenta> listarCuentasDeUsuario(Usuario usuario) {
         
-        return cuentas.listarCuentas();
+        return cuentas.listarCuentasPorUsuario(usuario);
 
     }
 
@@ -129,11 +146,39 @@ public class GestorDB implements IGestorDB {
 
     }
 
-    /* * * * * * * * * * * * *
-     *                       *
-     *   GESTIÓN DE BANCOS   *
-     *                       *
-     * * * * * * * * * * * * */
+    @Override
+    public void modificarCuenta(Cuenta cuenta) {
+
+        cuentas.modificar(cuenta);
+    }
+
+    @Override
+    public void eliminarCuenta(int id) {
+
+        cuentas.eliminar(id);
+
+    }
+
+
+
+/* * * * * * * * * * * * *
+ *                       *
+ *   GESTIÓN DE BANCOS   *
+ *                       *
+ * * * * * * * * * * * * */
+
+    @Override
+    public Optional<Banco> buscarBancoPorId(int id) {
+
+        return bancos.buscarDatosPorId(id);
+
+    }
+
+    @Override
+    public List<Banco> listarBancos() {
+
+        return bancos.listarBancos();
+    }
 
     @Override
     public void insertarBanco(Banco banco) {
@@ -143,13 +188,14 @@ public class GestorDB implements IGestorDB {
     }
     
     
-    /* * * * * * * * * * * * * *
-     * * * * * * * * * * * * * *
-     * *                     * *
-     * *   MÉTODOS PRIVADOS  * *
-     * *                     * *
-     * * * * * * * * * * * * * *
-     * * * * * * * * * * * * * */
+
+/* * * * * * * * * * * * * *
+ * * * * * * * * * * * * * *
+ * *                     * *
+ * *   MÉTODOS PRIVADOS  * *
+ * *                     * *
+ * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * */
 
     // Este método crea la base de datos junto a todas sus tablas si no existen
     private void crearDB() {
@@ -249,7 +295,7 @@ public class GestorDB implements IGestorDB {
     // Este método inserta datos de prueba en la tabla "bancos"
     private void insertarBancos() {
 
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 5; i++) {
 
             Banco banco = new Banco();
 
@@ -289,14 +335,15 @@ public class GestorDB implements IGestorDB {
     // Este método inserta datos de prueba en la tabla "cuentas"
     private void insertarCuentas() {
     
-        Banco banco1 = bancos.buscarDatosPorId(1).orElse(null);
-        Banco banco2 = bancos.buscarDatosPorId(2).orElse(null);
+        Banco banco1 = buscarBancoPorId(1).orElse(null);
+        Banco banco2 = buscarBancoPorId(2).orElse(null);
+        Banco banco3 = buscarBancoPorId(3).orElse(null);
     
         for (int i = 1; i <= 5; i++) {
         
             Usuario usuario = usuarios.buscarDatosPorId(i).orElse(null);
         
-            for (int j = 1; j <= 2; j++) {
+            for (int j = 1; j <= 3; j++) {
             
                 Cuenta cuenta = new Cuenta();
             
@@ -308,9 +355,13 @@ public class GestorDB implements IGestorDB {
 
                     cuenta.setBanco(banco1);
 
-                } else {
+                } else if (j == 2) {
 
                     cuenta.setBanco(banco2);
+
+                } else {
+
+                    cuenta.setBanco(banco3);
 
                 }
             
@@ -327,7 +378,7 @@ public class GestorDB implements IGestorDB {
 
         Banco banco1 = bancos.findById(1).orElse(null);
 
-        List<Cuenta> cuentasBanco1 = cuentas.buscarCuentaPorBanco(banco1);
+        List<Cuenta> cuentasBanco1 = buscarCuentaPorBanco(banco1);
 
         for (Cuenta cuenta : cuentasBanco1) {
 

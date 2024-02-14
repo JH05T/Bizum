@@ -52,7 +52,7 @@ public class Cuenta {
     @Override
 	public String toString() {
 
-		return "Cuenta [id=" + id + ", dinero=" + dinero + ", usuario=" + usuario + ", banco=" + banco + "]";
+		return "Cuenta [id=" + id + ", dinero=" + dinero + ", usuario=" + usuario.getId() + ", banco=" + banco.getId() + "]";
 
 	}
 
