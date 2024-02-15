@@ -19,7 +19,7 @@ public class UsuariosController {
     @Autowired
     private IGestorDB gestorDB;
 
-    @GetMapping({"/login", ""})
+    @GetMapping({"/login", "/"})
     public String mostrarLogin(Model modelo) {
 
         modelo.addAttribute("usuario", new Usuario());
@@ -29,18 +29,18 @@ public class UsuariosController {
     }
 
     @PostMapping("/login")
-public String procesarLogin(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes redirectAttributes, Model modelo) {
-
-    Usuario usuarioExistente = gestorDB.buscarUsuarioPorEmail(usuario.getEmail());
-
-    if (usuarioExistente != null && usuarioExistente.getPassword().equals(usuario.getPassword())) {
-        modelo.addAttribute("user", usuarioExistente); // Agregar el usuario al modelo y a la sesión
-        return "redirect:/cuentas";
-    } else {
-        redirectAttributes.addFlashAttribute("error", "El correo o la contraseña incorrectos.");
-        return "redirect:/login";
+    public String procesarLogin(@ModelAttribute("usuario") Usuario usuario, RedirectAttributes redirectAttributes, Model modelo) {
+    
+        Usuario usuarioExistente = gestorDB.buscarUsuarioPorEmail(usuario.getEmail());
+    
+        if (usuarioExistente != null && usuarioExistente.getPassword().equals(usuario.getPassword())) {
+            modelo.addAttribute("user", usuarioExistente); // Agregar el usuario al modelo y a la sesión
+            return "redirect:/cuentas";
+        } else {
+            redirectAttributes.addFlashAttribute("error", "El correo o la contraseña incorrectos.");
+            return "redirect:/login";
+        }
     }
-}
 
 
     @GetMapping("/register")

@@ -48,7 +48,7 @@
     					<td>
     						<a th:href="@{/cuentas/cajero/{id}(id=${cuenta.id})}" class="btn btn-info">Cajero</a>
     						<a th:href="@{/cuentas/bizum/{id}(id=${cuenta.id})}" class="btn btn-success" th:if="${usuario.cuentaBizum != null && cuenta.id == usuario.cuentaBizum.id}">Hacer Bizum</a>
-    						<a th:href="@{/cuentas/{id}(id=${cuenta.id})}" class="btn btn-danger" th:if="${usuario.cuentaBizum != null && cuenta.id != usuario.cuentaBizum.id}" onclick="return confirm('¿Estás seguro de que quieres eliminar esta cuenta?');">Eliminar</a>
+    						<a th:href="@{/cuentas/{id}(id=${cuenta.id})}" class="btn btn-danger" th:if="${usuario.cuentaBizum == null || cuenta.id != usuario.cuentaBizum.id}" onclick="return confirm('¿Estás seguro de que quieres eliminar esta cuenta?');">Eliminar</a>
     					</td>
     				</tr>
     			</tbody>
