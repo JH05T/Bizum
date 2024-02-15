@@ -102,6 +102,7 @@ public class GestorDB implements IGestorDB {
  *                         *
  * * * * * * * * * * * * * */
 
+    // Busca un usuario en la base de datos a partir del id
     @Override
     public Usuario buscarUsuarioPorId(int id) {
 
@@ -109,6 +110,7 @@ public class GestorDB implements IGestorDB {
 
     }
 
+    // Busca un usuario en la base de datos a partir del telefono
     @Override
     public Usuario buscarUsuarioPorTelefono(String telefono) {
 
@@ -116,13 +118,15 @@ public class GestorDB implements IGestorDB {
 
     }
 
+    // Busca un usuario en la base de datos a partir del email
     @Override
     public Usuario buscarUsuarioPorEmail(String email) {
 
         return usuarios.buscarUsuarioPorEmail(email);
-        
+
     }
 
+    // Inserta un usuario en la base de datos
     @Override
     public void insertarUsuario(Usuario usuario) {
 
@@ -130,6 +134,7 @@ public class GestorDB implements IGestorDB {
 
     }
 
+    // Modifica un usuario de la base de datos
     @Override
     public void modificarUsuario(Usuario usuario){
 
@@ -145,6 +150,7 @@ public class GestorDB implements IGestorDB {
  *                       *
  * * * * * * * * * * * * */
 
+    // Busca una cuenta en la base de datos a partir del id
     @Override
     public Cuenta buscarCuentaPorId(int id) {
 
@@ -152,6 +158,7 @@ public class GestorDB implements IGestorDB {
 
     }
   
+    // Busca las cuentas de un banco en la base de datos
     @Override
     public List<Cuenta> buscarCuentaPorBanco(Banco banco) {
 
@@ -159,6 +166,7 @@ public class GestorDB implements IGestorDB {
 
     }
 
+    // Busca las cuentas de un usuario en la base de datos
     @Override
     public List<Cuenta> listarCuentasDeUsuario(Usuario usuario) {
         
@@ -166,6 +174,7 @@ public class GestorDB implements IGestorDB {
 
     }
 
+    // Inserta una cuenta en la base de datos
     @Override
     public void insertarCuenta(Cuenta cuenta) {
 
@@ -173,12 +182,14 @@ public class GestorDB implements IGestorDB {
 
     }
 
+    // Modifica una cuenta de la base de datos
     @Override
     public void modificarCuenta(Cuenta cuenta) {
 
         cuentas.modificar(cuenta);
     }
 
+    // Elimina una cuenta de la base de datos
     @Override
     public void eliminarCuenta(int id) {
 
@@ -194,6 +205,7 @@ public class GestorDB implements IGestorDB {
  *                       *
  * * * * * * * * * * * * */
 
+    // Busca un banco en la base de datos a partir del id
     @Override
     public Banco buscarBancoPorId(int id) {
 
@@ -201,12 +213,14 @@ public class GestorDB implements IGestorDB {
 
     }
 
+    // Busca los bancos en la base de datos
     @Override
     public List<Banco> listarBancos() {
-
+        
         return bancos.listarBancos();
     }
-
+    
+    // Inserta un banco en la base de datos
     @Override
     public void insertarBanco(Banco banco) {
 
