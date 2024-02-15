@@ -44,38 +44,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     }
 
-
-    // // Busca un usuario a partir del id; devuelve la contraseña
-    // @Query("SELECT u.password FROM Usuario u WHERE u.id = :id")
-    // String buscarPasswordPorId(@Param("id") int id);
-
-    // // Busca un usuario a partir del id; devuelve la cuenta Bizum
-    // @Query("SELECT u.cuentaBizum FROM Usuario u WHERE u.id = :id")
-    // int buscarCuentaBizumPorId(@Param("id") int id);
-
-    // // Busca un usuario a partir del id; devuelve el nombre y los apellidos del usuario
-    // @Query("SELECT u.nombre, u.apellidos FROM Usuario u WHERE u.id = :id")
-    // List<String> buscarNombreYApellidosPorId(@Param("id") int id);
-
-    // // Busca un usuario a partir del número de teléfono; devuelve la cuenta Bizum
-    // @Query("SELECT u.cuentaBizum FROM Usuario u WHERE u.telefono = :telefono")
-    // int buscarCuentaBizumPorTelefono(@Param("telefono") String telefono);
-
-    // Actualiza los datos de un usuario a partir del id
-    // default void modificar(Integer id, String nombre, String apellidos, String telefono, String email, String password, int cuentaBizum) {
-    //     Usuario usuario = findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-    //     usuario.setNombre(nombre);
-    //     usuario.setApellidos(apellidos);
-    //     usuario.setTelefono(telefono);
-    //     usuario.setEmail(email);
-    //     usuario.setPassword(password);
-    //     usuario.setCuentaBizum(cuentaBizum);
-    //     save(usuario);
-    // }
-
-    // // Borra un usuario a partir del id
-    // default void eliminar(Integer id) {
-    //     deleteById(id);
-    // }
-
 }

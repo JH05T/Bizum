@@ -230,9 +230,11 @@ public class GestorDB implements IGestorDB {
         try {
 
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306", USER, PASSWORD);
+            
             Statement statement = conn.createStatement();
 
             String createDatabaseQuery = "CREATE DATABASE IF NOT EXISTS bancos;";
+
             statement.executeUpdate(createDatabaseQuery);
     
             statement.execute("USE bancos;");
@@ -403,7 +405,7 @@ public class GestorDB implements IGestorDB {
     // Este método actualiza la cuentaBizum de todos los usuarios a su cuenta del banco con ID 1
     private void agregarCuentasBizumUsuarios() {
 
-        Banco banco1 = bancos.findById(1).orElse(null);
+        Banco banco1 = buscarBancoPorId(1);
 
         List<Cuenta> cuentasBanco1 = buscarCuentaPorBanco(banco1);
 

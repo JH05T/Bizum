@@ -2,42 +2,63 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
+    <head>
 
-    <meta charset="utf-8">
+        <meta charset="utf-8">
 
-    <title>Cajero</title>
+        <title>Cajero</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-</head>
+    </head>
 
-<body>
+    <body>
 
-    <div class="container">
-        <br>
-        <div class="row">
+        <div class="container">
+            
             <br>
-            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-                <h1 class="text-center">Cajero</h1>
-                <div class="card-body">
-                    <form th:action="@{/cuentas/{id}(id=${cuenta.id})}" th:object="${cuenta}" method="POST">
-                        <div class="form-group">
-                            <label>Cantidad : </label>
-                            <input type="number" step="0.01" name="saldo" th:field="*{dinero}" value="0" min="0" class="form-control" required onkeydown="return event.key !== '-' && event.key !== 'e'">
-                        </div>
 
-                        <div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
+            <div class="row">
 
-                        <div class="box-footer text-center">
-                            <button type="submit" name="action" value="ingresar" class="btn btn-info btn-block">Ingresar</button>
-                            <button type="submit" name="action" value="retirar" class="btn btn-info btn-block">Retirar</button>
-                        </div>
-                    </form>
+                <br>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+
+                    <h1 class="text-center">Cajero</h1>
+
+                    <div class="card-body">
+
+                        <form th:action="@{/cuentas/{id}(id=${cuenta.id})}" th:object="${cuenta}" method="POST">
+                            
+                            <div class="form-group">
+
+                                <label>Cantidad : </label>
+
+                                
+                                <input type="number" step="0.01" name="saldo" th:field="*{dinero}" value="0" min="0" class="form-control" required onkeydown="return event.key !== '-' && event.key !== 'e'">
+                            
+                            </div>
+
+                            <div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
+
+                            <div class="box-footer text-center">
+
+                                <button type="submit" name="action" value="ingresar" class="btn btn-info btn-block">Ingresar</button>
+
+                                <button type="submit" name="action" value="retirar" class="btn btn-info btn-block">Retirar</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
                 </div>
-            </div>
-        </div>
-    </div>
 
-</body>
+            </div>
+
+        </div>
+
+    </body>
+
 </html>

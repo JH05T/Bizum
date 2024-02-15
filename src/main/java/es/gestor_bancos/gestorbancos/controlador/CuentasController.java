@@ -45,6 +45,7 @@ public class CuentasController {
         usuario = user;
 
         modelo.addAttribute("usuario", usuario);
+
         modelo.addAttribute("cuentas", gestorDB.listarCuentasDeUsuario(usuario));
         
         return "cuentas";
@@ -59,6 +60,7 @@ public class CuentasController {
         List<Banco> bancos = gestorDB.listarBancos();
     
         modelo.addAttribute("cuenta", cuenta);
+
         modelo.addAttribute("bancos", bancos);
         
         return "crear_cuenta";
@@ -77,6 +79,7 @@ public class CuentasController {
         } else {
 
             cuenta.setUsuario(usuario);
+
             gestorDB.insertarCuenta(cuenta);
 
         }
@@ -143,6 +146,7 @@ public class CuentasController {
             } else {
 
                 redirectAttributes.addFlashAttribute("receptor", receptor);
+
                 redirectAttributes.addFlashAttribute("cantidad", cantidad);
 
             }
@@ -158,7 +162,9 @@ public class CuentasController {
         Cuenta cuenta = gestorDB.buscarCuentaPorId(id);
 
         modelo.addAttribute("cuenta", cuenta);
+
         modelo.addAttribute("receptor", receptor);
+
         modelo.addAttribute("cantidad", cantidad);
 
         return "confirmar_bizum";

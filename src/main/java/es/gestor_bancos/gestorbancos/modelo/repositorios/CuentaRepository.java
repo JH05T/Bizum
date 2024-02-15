@@ -13,8 +13,7 @@ import es.gestor_bancos.gestorbancos.modelo.entidades.Usuario;
 
 @Repository
 public interface CuentaRepository extends JpaRepository<Cuenta, Integer> {
-
-
+    
     // Busca una cuenta a partir de su id; devuelve la cuenta
     @Query("SELECT c FROM Cuenta c WHERE c.id = :id")
     Cuenta buscarCuentaPorId(@Param("id") int id);
@@ -55,41 +54,5 @@ public interface CuentaRepository extends JpaRepository<Cuenta, Integer> {
         deleteById(id);
         
     }
-
-
-
-
-    // // Busca una cuenta a partir de su id; devuelve todos los datos
-    // @Query("SELECT c FROM Cuenta c")
-    // List<Cuenta> listarCuentas();
-
-    // // Busca las cuentas de un usuario; devuevlve el dinero y el banco de cada cuenta
-    // @Query("SELECT c.banco FROM Cuenta c WHERE c.usuario = :usuario")
-    // List<Integer> buscarBancoPorUsuario(@Param("usuario") int usuario);
-    
-    // // Busca la cuenta de un usuario de un banco concreto; devuevlve la id de la cuenta
-    // @Query("SELECT c.id FROM Cuenta c WHERE c.usuario = :usuario AND c.banco = :banco")
-    // int buscarIdPorUsuarioYBanco(@Param("usuario") int usuario, @Param("banco") int banco);
-
-    // // Busca la cuenta de un usuario de un banco concreto; devuevlve el dinero de la cuenta
-    // @Query("SELECT c.dinero FROM Cuenta c WHERE c.usuario = :usuario AND c.banco = :banco")
-    // double buscarDineroPorUsuarioYBanco(@Param("usuario") int usuario, @Param("banco") int banco);
-
-    
-    // // Actualiza los datos de una cuenta a partir del id
-    // // default void modificar(Integer id, double dinero, int usuario, int banco) {
-    // //     Cuenta cuenta = findById(id).orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
-    // //     cuenta.setDinero(dinero);
-    // //     cuenta.setUsuario(usuario);
-    // //     cuenta.setBanco(banco);
-    // //     save(cuenta);
-    // // }
-    
-    // // Actualiza el dinero del banco a partir de su id
-    // default void modificarDinero(Integer id, double dinero) {
-    //     Cuenta cuenta = findById(id).orElseThrow(() -> new RuntimeException("Cuenta no encontrada"));
-    //     cuenta.setDinero(dinero);
-    //     save(cuenta);
-    // }
 
 }

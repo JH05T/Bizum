@@ -1,47 +1,112 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <title>Registrarse</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container">
-        <br>
-        <div class="row">
+
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>Registrarse</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    </head>
+
+    <body>
+
+        <div class="container">
+
             <br>
-            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-                <h1 class="text-center">Registrarse</h1>
-                <div class="card-body">
-                    <form th:action="@{/register}" th:object="${usuario}" method="post">
-                        <div class="form-group">
-                            <label>Nombre:</label><br>
-                            <input type="text" id="nombre" name="nombre" th:field="*{nombre}" class="form-control" required><br>
-                        </div>
-                        <div class="form-group">
-                            <label>Apellidos:</label><br>
-                            <input type="text" id="apellidos" name="apellidos" th:field="*{apellidos}" class="form-control" required><br>
-                        </div>
-                        <div class="form-group">
-                            <label>Teléfono:</label><br>
-                            <input type="tel" id="telefono" name="telefono" th:field="*{telefono}" class="form-control" required><br>
-                        </div>
-                        <div class="form-group">
-                            <label>Correo electrónico:</label><br>
-                            <input type="email" id="email" name="email" th:field="*{email}" class="form-control" required><br>
-                        </div>
-                        <div class="form-group">
-                            <label>Contraseña:</label><br>
-                            <input type="password" id="password" name="password" th:field="*{password}" class="form-control" required><br>
-                        </div>
-                        <div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
-                        <div class="box-footer text-center">
-                            <button class="btn btn-info btn-block">Registrarse</button>
-                        </div>
-                    </form>
+
+            <div class="row">
+
+                <br>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+
+                    <h1 class="text-center">Registrarse</h1>
+
+                    <div class="card-body">
+
+                        <form th:action="@{/register}" th:object="${usuario}" method="post">
+
+                            <div class="form-group">
+
+                                <label>Nombre:</label>
+                                
+                                <br>
+
+                                <input type="text" id="nombre" name="nombre" th:field="*{nombre}" class="form-control" required>
+                                
+                                <br>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Apellidos:</label>
+                                
+                                <br>
+
+                                <input type="text" id="apellidos" name="apellidos" th:field="*{apellidos}" class="form-control" required>
+                                
+                                <br>
+
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Teléfono:</label>
+                                
+                                <br>
+
+                                <input type="tel" id="telefono" name="telefono" th:field="*{telefono}" class="form-control" required>
+                                
+                                <br>
+                            
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>Correo electrónico:</label>
+                                
+                                <br>
+
+                                <input type="email" id="email" name="email" th:field="*{email}" class="form-control" required>
+                                
+                                <br>
+                            
+                            </div>
+
+                            <div class="form-group">
+                                
+                                <label>Contraseña:</label>
+                                
+                                <br>
+                                
+                                <input type="password" id="password" name="password" th:field="*{password}" class="form-control" required>
+                                
+                                <br>
+                            
+                            </div>
+
+                            <div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
+
+                            <div class="box-footer text-center">
+
+                                <button class="btn btn-info btn-block">Registrarse</button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
-    </div>
-</body>
+
+    </body>
+
 </html>

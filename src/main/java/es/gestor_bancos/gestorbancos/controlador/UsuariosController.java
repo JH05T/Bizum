@@ -34,12 +34,19 @@ public class UsuariosController {
         Usuario usuarioExistente = gestorDB.buscarUsuarioPorEmail(usuario.getEmail());
     
         if (usuarioExistente != null && usuarioExistente.getPassword().equals(usuario.getPassword())) {
-            modelo.addAttribute("user", usuarioExistente); // Agregar el usuario al modelo y a la sesión
+
+            modelo.addAttribute("user", usuarioExistente);
+            
             return "redirect:/cuentas";
+
         } else {
+
             redirectAttributes.addFlashAttribute("error", "El correo o la contraseña incorrectos.");
+
             return "redirect:/login";
+
         }
+
     }
 
 
@@ -86,6 +93,7 @@ public class UsuariosController {
         gestorDB.insertarUsuario(usuario);
 
         return "redirect:/login";
+
     }
 
 }

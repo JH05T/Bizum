@@ -27,27 +27,4 @@ public interface BancoRepository extends JpaRepository<Banco, Integer> {
 
     }
 
-
-
-
-
-
-    // // Busca bancos a partir de su nombre; devuelve la id de los bancos
-    // @Query("SELECT b.id FROM Banco b WHERE b.nombre = :nombre")
-    // List<Integer> buscarIdPorNombre(@Param("nombre") String nombre);
-
-
-
-    // // Actualiza el nombre del banco a partir del id
-    // default void modificar(Integer id, String nombre) {
-    //     Banco banco = findById(id).orElseThrow(() -> new RuntimeException("Banco no encontrado"));
-    //     banco.setNombre(nombre);
-    //     save(banco);
-    // }
-    
-    // // Borra un banco a partir del id
-    // default void eliminar(Integer id) {
-    //     deleteById(id);
-    // }
-
 }

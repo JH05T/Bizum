@@ -2,65 +2,109 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
+	<head>
 
-    <meta charset="utf-8">
+	    <meta charset="utf-8">
 
-    <title>Gestión de Cuentas</title>
+	    <title>Gestión de Cuentas</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <script>
-        function submitForm() {
-            document.getElementById("bizumForm").submit();
-        }
-    </script>
+	    <script>
+			
+	        function submitForm() {
 
-</head>
+	            document.getElementById("bizumForm").submit();
 
-<body>
+	        }
 
-	<div class="container">
-		<br>
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<h1>Cuentas</h1>
+	    </script>
+
+	</head>
+
+	<body>
+
+		<div class="container">
+
+			<br>
+
+			<div class="row">
+
+				<div class="col-lg-12 text-center">
+
+					<h1>Cuentas</h1>
+
+				</div>
+
 			</div>
-		</div>
-		<br>
-        <form th:action="@{/cuentas/bizum}" method="post" id="bizumForm">
-    		<table class="table table-striped table-bordered text-center">
-    			<thead class="table-dark">
-    				<tr>
-    					<th>Saldo</th>
-    					<th>Banco</th>
-    					<th>Bizum</th>
-    					<th>Opciones</th>
-    				</tr>
-    			</thead>
-    			<tbody>
-    				<tr th:each="cuenta : ${cuentas}">
-    					<td th:text="${cuenta.dinero}">Saldo</td>
-    					<td th:text="${cuenta.banco.nombre}">Banco</td>
-    					<td>
-    						<input type="radio" th:id="${{cuenta.id}}" th:value="${{cuenta.id}}" name="bizum" th:checked="${usuario.cuentaBizum != null && cuenta.id == usuario.cuentaBizum.id}" onclick="submitForm()"/>
-    					</td>
-    					<td>
-    						<a th:href="@{/cuentas/cajero/{id}(id=${cuenta.id})}" class="btn btn-info">Cajero</a>
-    						<a th:href="@{/cuentas/bizum/{id}(id=${cuenta.id})}" class="btn btn-success" th:if="${usuario.cuentaBizum != null && cuenta.id == usuario.cuentaBizum.id}">Hacer Bizum</a>
-    						<a th:href="@{/cuentas/{id}(id=${cuenta.id})}" class="btn btn-danger" th:if="${usuario.cuentaBizum == null || cuenta.id != usuario.cuentaBizum.id}" onclick="return confirm('¿Estás seguro de que quieres eliminar esta cuenta?');">Eliminar</a>
-    					</td>
-    				</tr>
-    			</tbody>
-    		</table>
-        </form>
-		<br>
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<a th:href="@{/cuentas/nueva}" class="btn btn-info btn-sm mb3">Agregar cuenta</a>
+
+			<br>
+
+	        <form th:action="@{/cuentas/bizum}" method="post" id="bizumForm">
+
+	    		<table class="table table-striped table-bordered text-center">
+
+	    			<thead class="table-dark">
+
+	    				<tr>
+
+	    					<th>Saldo</th>
+
+	    					<th>Banco</th>
+
+	    					<th>Bizum</th>
+
+	    					<th>Opciones</th>
+
+	    				</tr>
+
+	    			</thead>
+
+	    			<tbody>
+
+	    				<tr th:each="cuenta : ${cuentas}">
+
+	    					<td th:text="${cuenta.dinero}">Saldo</td>
+
+	    					<td th:text="${cuenta.banco.nombre}">Banco</td>
+
+	    					<td>
+								
+	    						<input type="radio" th:id="${{cuenta.id}}" th:value="${{cuenta.id}}" name="bizum" th:checked="${usuario.cuentaBizum != null && cuenta.id == usuario.cuentaBizum.id}" onclick="submitForm()"/>
+	    					
+							</td>
+
+	    					<td>
+	    						
+								<a th:href="@{/cuentas/cajero/{id}(id=${cuenta.id})}" class="btn btn-info">Cajero</a>
+	    						
+								<a th:href="@{/cuentas/bizum/{id}(id=${cuenta.id})}" class="btn btn-success" th:if="${usuario.cuentaBizum != null && cuenta.id == usuario.cuentaBizum.id}">Hacer Bizum</a>
+	    						
+								<a th:href="@{/cuentas/{id}(id=${cuenta.id})}" class="btn btn-danger" th:if="${usuario.cuentaBizum == null || cuenta.id != usuario.cuentaBizum.id}" onclick="return confirm('¿Estás seguro de que quieres eliminar esta cuenta?');">Eliminar</a>
+	    					
+							</td>
+	    				</tr>
+
+	    			</tbody>
+
+	    		</table>
+
+	        </form>
+
+			<br>
+
+			<div class="row">
+
+				<div class="col-lg-12 text-center">
+
+					<a th:href="@{/cuentas/nueva}" class="btn btn-info btn-sm mb3">Agregar cuenta</a>
+
+				</div>
+
 			</div>
+
 		</div>
-	</div>
+
+	</body>
 	
-</body>
 </html>
