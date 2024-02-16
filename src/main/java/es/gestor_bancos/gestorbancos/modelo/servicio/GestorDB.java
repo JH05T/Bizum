@@ -178,6 +178,7 @@ public class GestorDB implements IGestorDB {
     public void modificarCuenta(Cuenta cuenta) {
 
         cuentas.modificar(cuenta);
+        
     }
 
     // Elimina una cuenta de la base de datos
@@ -319,7 +320,7 @@ public class GestorDB implements IGestorDB {
 
         String createCuentasTableQuery = "CREATE TABLE IF NOT EXISTS cuentas (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "dinero DECIMAL(10, 2)," +
+                "dinero DOUBLE PRECISION," +
                 "usuario INT," +
                 "banco INT," +
                 "FOREIGN KEY (usuario) REFERENCES usuarios(id)," +

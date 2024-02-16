@@ -30,6 +30,8 @@ public class CuentasController {
 
     private Usuario receptor;
 
+    private int idReceptor;
+
     @PostConstruct
     public void init() {
 
@@ -231,6 +233,8 @@ public class CuentasController {
 
             } else {
 
+                idReceptor = receptor.getId();
+
                 redirectAttributes.addFlashAttribute("receptor", receptor);
 
                 redirectAttributes.addFlashAttribute("cantidad", cantidad);
@@ -240,6 +244,7 @@ public class CuentasController {
         }
 
         return "redirect:/cuentas/bizum/confirmar/" + id;
+        
     }
 
     // Hace el bizum
@@ -247,6 +252,8 @@ public class CuentasController {
     public String realizarBizum(@PathVariable("id") int id, @ModelAttribute("cantidad") double cantidad, RedirectAttributes redirectAttributes) {
 
         Cuenta cuenta = gestorDB.buscarCuentaPorId(id);
+
+        receptor.setId(idReceptor);
 
         cuenta.setDinero(cuenta.getDinero() - cantidad);
 
@@ -280,7 +287,7 @@ public class CuentasController {
 
     // Cierra la sesion y vuelve a la pantalla de iniciar sesion
     @GetMapping("/cuentas/logout")
-    public String cerrarSesion(@ModelAttribute("user") Usuario user) {
+    public String cerrarSesion() {
 
         return "redirect:/login";
 
