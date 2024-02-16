@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import es.gestor_bancos.gestorbancos.modelo.repositorios.BancoRepository;
 import es.gestor_bancos.gestorbancos.modelo.repositorios.CuentaRepository;
 import es.gestor_bancos.gestorbancos.modelo.repositorios.UsuarioRepository;
-
+import es.gestor_bancos.gestorbancos.modelo.Encriptador;
 import es.gestor_bancos.gestorbancos.modelo.entidades.Banco;
 import es.gestor_bancos.gestorbancos.modelo.entidades.Cuenta;
 import es.gestor_bancos.gestorbancos.modelo.entidades.Usuario;
@@ -116,6 +116,10 @@ public class GestorDB implements IGestorDB {
     // Inserta un usuario en la base de datos
     @Override
     public void insertarUsuario(Usuario usuario) {
+
+        Encriptador encriptador = new Encriptador();
+
+        usuario.setPassword(encriptador.encriptar(usuario.getPassword()));
 
         usuarios.insertar(usuario);
 
@@ -287,7 +291,7 @@ public class GestorDB implements IGestorDB {
 
         String createBancosTableQuery = "CREATE TABLE IF NOT EXISTS bancos (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "nombre VARCHAR(255)" +
+                "nombre VARCHAR(50)" +
                 ");";
 
         statement.executeUpdate(createBancosTableQuery);
@@ -299,11 +303,11 @@ public class GestorDB implements IGestorDB {
 
         String createUsuariosTableQuery = "CREATE TABLE IF NOT EXISTS usuarios (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "nombre VARCHAR(255)," +
-                "apellidos VARCHAR(255)," +
+                "nombre VARCHAR(50)," +
+                "apellidos VARCHAR(100)," +
                 "telefono VARCHAR(15) UNIQUE," +
-                "email VARCHAR(255) UNIQUE," +
-                "password VARCHAR(255)" +
+                "email VARCHAR(100) UNIQUE," +
+                "password VARCHAR(64)" +
                 ");";
 
         statement.executeUpdate(createUsuariosTableQuery);

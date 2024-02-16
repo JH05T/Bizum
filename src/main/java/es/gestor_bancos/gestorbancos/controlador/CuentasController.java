@@ -38,7 +38,18 @@ public class CuentasController {
         receptor = new Usuario();
 
     }
+
+
+
+/* * * * * * * * * * * *
+ * * * * * * * * * * * *
+ * *                 * *
+ * *   CARGAR VISTAS * *
+ * *                 * *
+ * * * * * * * * * * * *
+ * * * * * * * * * * * */
     
+    // Carga la vista en la que se mostrarán las cuentas de un usuario
     @GetMapping("/cuentas")
     public String listarCuentasUsuario(@ModelAttribute("user") Usuario user, Model modelo) {
 
@@ -52,6 +63,7 @@ public class CuentasController {
 
     }
 
+    // Carga la vista desde la que se recogerán los datos para crear una nueva cuenta para el usuario
     @GetMapping("/cuentas/nueva")
     public String crearNuevaCuenta(Model modelo) {
     
@@ -66,7 +78,56 @@ public class CuentasController {
         return "crear_cuenta";
     
     }
+    
+    // Carga la vista desde la que se ingresará o se retirará dinero de una cuenta
+    @GetMapping("/cuentas/cajero/{id}")
+    public String modificarSaldo(@PathVariable("id") int id, Model modelo) {
 
+        modelo.addAttribute("cuenta", gestorDB.buscarCuentaPorId(id));
+
+        return "modificar_saldo";
+
+    }
+
+    // Carga la vista desde la que el usuario introducirá los datos para realizar el bizum
+    @GetMapping("/cuentas/bizum/{id}")
+    public String prepararBizum(@PathVariable("id") int id, Model modelo) {
+
+        Cuenta cuenta = gestorDB.buscarCuentaPorId(id);
+
+        modelo.addAttribute("cuenta", cuenta);
+        
+        return "hacer_bizum";
+        
+    }
+
+    // Carga la vista desde la que el usuario confirmará si desea hacer el bizum
+    @GetMapping("/cuentas/bizum/confirmar/{id}")
+    public String confirmarBizum(@PathVariable("id") int id, @ModelAttribute("receptor") Usuario receptor, @ModelAttribute("cantidad") double cantidad, Model modelo) {
+
+        Cuenta cuenta = gestorDB.buscarCuentaPorId(id);
+
+        modelo.addAttribute("cuenta", cuenta);
+
+        modelo.addAttribute("receptor", receptor);
+
+        modelo.addAttribute("cantidad", cantidad);
+
+        return "confirmar_bizum";
+
+    }
+
+
+
+/* * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * *
+ * *                         * *
+ * *   MANIPULACIÓN DE DATOS * *
+ * *                         * *
+ * * * * * * * * * * * * * * * *
+ * * * * * * * * * * * * * * * */
+
+    // Crea una nueva cuenta, la inserta en la base de datos y te devuelve a la pantalla de lista de cuentas en caso de que todo haya ido bien, en caso contrario te muestra un error
     @PostMapping("/cuentas")
     public String guardarCuenta(@ModelAttribute("cuenta") Cuenta cuenta, RedirectAttributes redirectAttributes) {
 
@@ -88,6 +149,7 @@ public class CuentasController {
 
     }
 
+    // Cambia la cuenta desde la que el usuario realizará y recibirá los bizum
     @PostMapping("/cuentas/bizum")
     public String cambiarCuentaBizum(@RequestParam("bizum") int idCuentaBizum) {
 
@@ -105,17 +167,41 @@ public class CuentasController {
 
     }
 
-    @GetMapping("/cuentas/bizum/{id}")
-    public String prepararBizum(@PathVariable("id") int id, Model modelo) {
+    // Guarda la nueva cantidad de dinero de la cuenta en función del dinero introducido o retirado, en caso de intentar retirar más dinero del que hay en la cuenta muestra un mensaje de error
+    @PostMapping("/cuentas/{id}")
+    public String guardarSaldo(@PathVariable("id") int id, @ModelAttribute("cuenta") Cuenta cuenta, @RequestParam("action") String action, RedirectAttributes redirectAttributes) {
 
-        Cuenta cuenta = gestorDB.buscarCuentaPorId(id);
+        Cuenta cuentaExistente = gestorDB.buscarCuentaPorId(id);
 
-        modelo.addAttribute("cuenta", cuenta);
+        cuentaExistente.setId(id);
 
-        return "hacer_bizum";
-        
+        if ("ingresar".equals(action)) {
+
+            cuentaExistente.setDinero(cuentaExistente.getDinero() + cuenta.getDinero());
+
+        } else if ("retirar".equals(action)) {
+
+            if (cuenta.getDinero() > cuentaExistente.getDinero()) {
+
+                redirectAttributes.addFlashAttribute("error", "No puedes retirar más dinero del que tienes en tu cuenta.");
+
+                return "redirect:/cuentas/cajero/" + id;
+
+            } else {
+
+                cuentaExistente.setDinero(cuentaExistente.getDinero() - cuenta.getDinero());
+
+            }
+
+        }
+
+        gestorDB.modificarCuenta(cuentaExistente);
+
+        return "redirect:/cuentas";
+
     }
 
+    // Comprueba que los datos introducidos para realizar el bizum sean correctos, en caso de intentar enviar más dinero del que hay en la cuenta muestra un mensaje de error
     @PostMapping("/cuentas/bizum/{id}")
     public String comprobarBizum(@PathVariable("id") int id, @RequestParam("cantidad") double cantidad, @RequestParam("telefono") String telefono, RedirectAttributes redirectAttributes) {
 
@@ -156,21 +242,7 @@ public class CuentasController {
         return "redirect:/cuentas/bizum/confirmar/" + id;
     }
 
-    @GetMapping("/cuentas/bizum/confirmar/{id}")
-    public String confirmarBizum(@PathVariable("id") int id, @ModelAttribute("receptor") Usuario receptor, @ModelAttribute("cantidad") double cantidad, Model modelo) {
-
-        Cuenta cuenta = gestorDB.buscarCuentaPorId(id);
-
-        modelo.addAttribute("cuenta", cuenta);
-
-        modelo.addAttribute("receptor", receptor);
-
-        modelo.addAttribute("cantidad", cantidad);
-
-        return "confirmar_bizum";
-
-    }
-
+    // Hace el bizum
     @PostMapping("/cuentas/bizum/confirmar/{id}")
     public String realizarBizum(@PathVariable("id") int id, @ModelAttribute("cantidad") double cantidad, RedirectAttributes redirectAttributes) {
 
@@ -188,49 +260,7 @@ public class CuentasController {
         
     }
 
-
-    @GetMapping("/cuentas/cajero/{id}")
-    public String modificarSaldo(@PathVariable("id") int id, Model modelo) {
-
-        modelo.addAttribute("cuenta", gestorDB.buscarCuentaPorId(id));
-
-        return "modificar_saldo";
-
-    }
-
-    @PostMapping("/cuentas/{id}")
-    public String guardarSaldo(@PathVariable("id") int id, @ModelAttribute("cuenta") Cuenta cuenta, @RequestParam("action") String action, RedirectAttributes redirectAttributes) {
-
-        Cuenta cuentaExistente = gestorDB.buscarCuentaPorId(id);
-
-        cuentaExistente.setId(id);
-
-        if ("ingresar".equals(action)) {
-
-            cuentaExistente.setDinero(cuentaExistente.getDinero() + cuenta.getDinero());
-
-        } else if ("retirar".equals(action)) {
-
-            if (cuenta.getDinero() > cuentaExistente.getDinero()) {
-
-                redirectAttributes.addFlashAttribute("error", "No puedes retirar más dinero del que tienes en tu cuenta.");
-
-                return "redirect:/cuentas/cajero/" + id;
-
-            } else {
-
-                cuentaExistente.setDinero(cuentaExistente.getDinero() - cuenta.getDinero());
-
-            }
-
-        }
-
-        gestorDB.modificarCuenta(cuentaExistente);
-
-        return "redirect:/cuentas";
-
-    }
-
+    // Elimina una cuenta
     @GetMapping("/cuentas/{id}")
     public String eliminarCuenta(@PathVariable("id") int id) {
 
@@ -239,5 +269,21 @@ public class CuentasController {
         return "redirect:/cuentas";
 
     }
-    
+
+    // Vuelve a la pantalla de visualizar cuentas
+    @GetMapping("/cuentas/volver")
+    public String volverAListarCuentas() {
+
+        return "redirect:/cuentas";
+
+    }
+
+    // Cierra la sesion y vuelve a la pantalla de iniciar sesion
+    @GetMapping("/cuentas/logout")
+    public String cerrarSesion(@ModelAttribute("user") Usuario user) {
+
+        return "redirect:/login";
+
+    }
+
 }
