@@ -1,5 +1,8 @@
 package es.gestor_bancos.gestorbancos;
 
+import java.awt.Desktop;
+import java.net.URI;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -21,6 +24,38 @@ public class GestorBancosApplication {
 
 		gestorDB.conectar();
 		gestorDB.desconectar();
+
+		String url = "http://localhost:8090";
+
+		if(Desktop.isDesktopSupported()){
+
+			Desktop desktop = Desktop.getDesktop();
+
+			try {
+
+				desktop.browse(new URI(url));
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+
+			}
+
+		}else{
+
+			Runtime runtime = Runtime.getRuntime();
+
+			try {
+
+				runtime.exec("xdg-open " + url);
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+
+			}
+			
+		}
 
 	}
 

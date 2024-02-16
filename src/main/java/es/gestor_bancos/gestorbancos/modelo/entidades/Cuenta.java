@@ -56,34 +56,60 @@ public class Cuenta {
 
 	}
 
-    
-    /*
-     * Getters & Setters
-     */
+
+
+/* * * * * * * * * * * * *
+ *                       *
+ *   Getters & Setters   *
+ *                       *
+ * * * * * * * * * * * * */
 
     public int getId() {
+
         return id;
+
     }
+
     public void setId(int id) {
+
         this.id = id;
+
     }
+
     public double getDinero() {
+
         return dinero;
+
     }
+
     public void setDinero(double dinero) {
+
         this.dinero = dinero;
+
     }
+
     public Usuario getUsuario() {
+
         return usuario;
+
     }
+
     public void setUsuario(Usuario usuario) {
+
         this.usuario = usuario;
+
     }
+
     public Banco getBanco() {
+
         return banco;
+
     }
+
     public void setBanco(Banco banco) {
+
         this.banco = banco;
+        
     }
 
 }

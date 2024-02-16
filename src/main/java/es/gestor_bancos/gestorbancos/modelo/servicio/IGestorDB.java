@@ -29,6 +29,8 @@ public interface IGestorDB {
   // Modifica un usuario de la base de datos
   public void modificarUsuario(Usuario usuario);
 
+
+
 /* * * * * * * * * * * * *
  *                       *
  *   GESTIÓN DE CUENTAS  *
@@ -53,6 +55,8 @@ public interface IGestorDB {
   // Elimina una cuenta de la base de datos
   public void eliminarCuenta(int id);
 
+
+  
 /* * * * * * * * * * * * *
  *                       *
  *   GESTIÓN DE BANCOS   *
