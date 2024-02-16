@@ -1,0 +1,7 @@
+- Para que la aplicación funcione correctamente se deben cambiar el usuario y la contraseña de la base de datos en 2 lugares:
+  - En la clase GestorDB.java, que se encuentra en la siguiente ruta: "src.main.java.es.gestor_bancos.gestorbancos.modelo.servicio". Dentro de la clase hay que cambiar dos constantes:
+    - private static final String USER = "Tu nombre de usuario";
+    - private static final String PASSWORD = "Tu contraseña";
+  - En el archivo application.properties, que se encuentra en la siguiente ruta: "src.main.resources". Hay que cambiar los siguientes apartados:
+    - spring.datasource.username=Tu nombre de usuario
+    - spring.datasource.password=Tu contraseña
