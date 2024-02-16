@@ -22,10 +22,6 @@ public class GestorBancosApplication {
 		gestorDB.conectar();
 		gestorDB.desconectar();
 
-		// gestorDB.insertarDatos();
-
-		// contexto.close();
-
 	}
 
 }

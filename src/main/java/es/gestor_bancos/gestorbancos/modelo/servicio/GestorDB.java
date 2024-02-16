@@ -81,19 +81,6 @@ public class GestorDB implements IGestorDB {
 
     }
 
-    // Este método inserta datos de prueba en las tablas
-    public void insertarDatos() {
-
-        insertarBancos();
-
-        insertarUsuarios();
-
-        insertarCuentas();
-
-        agregarCuentasBizumUsuarios();
-
-    }
-
 
 
 /* * * * * * * * * * * * * *
@@ -255,6 +242,8 @@ public class GestorDB implements IGestorDB {
     
             crearTablas(statement);
 
+            insertarDatos();
+            
             conectar();
 
             statement.close();
@@ -277,6 +266,19 @@ public class GestorDB implements IGestorDB {
         crearTablaCuentas(statement);
    
         terminarDeCrearTablaUsuarios(statement);
+
+    }
+
+    // Este método inserta datos de prueba en las tablas
+    private void insertarDatos() {
+
+        insertarBancos();
+
+        insertarUsuarios();
+
+        insertarCuentas();
+
+        agregarCuentasBizumUsuarios();
 
     }
 
