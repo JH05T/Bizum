@@ -36,7 +36,6 @@ public class Usuario {
     @JoinColumn(name = "cuentaBizum", referencedColumnName = "id")
     private Cuenta cuentaBizum;
 
-
     public Usuario() {
 
     }

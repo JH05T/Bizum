@@ -436,7 +436,7 @@ public class GestorDB implements IGestorDB {
 
             usuario.setCuentaBizum(cuenta);
 
-            insertarUsuario(usuario);
+            modificarUsuario(usuario);
 
         }
 
