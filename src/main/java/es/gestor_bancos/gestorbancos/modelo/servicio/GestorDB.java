@@ -436,11 +436,9 @@ public class GestorDB implements IGestorDB {
 
             usuario.setCuentaBizum(cuenta);
 
-            usuarios.save(usuario);
+            insertarUsuario(usuario);
 
         }
-
-        usuarios.flush();
 
     }
 
