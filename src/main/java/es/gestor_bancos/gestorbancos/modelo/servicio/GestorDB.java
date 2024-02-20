@@ -11,10 +11,6 @@ import es.gestor_bancos.gestorbancos.modelo.entidades.Banco;
 import es.gestor_bancos.gestorbancos.modelo.entidades.Cuenta;
 import es.gestor_bancos.gestorbancos.modelo.entidades.Usuario;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
 @Service
