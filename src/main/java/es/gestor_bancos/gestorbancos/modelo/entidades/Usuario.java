@@ -23,10 +23,10 @@ public class Usuario {
     @Column(name = "apellidos",nullable = true,length = 100)
     private String apellidos;
 
-    @Column(name = "telefono",nullable = true,length = 15)
+    @Column(name = "telefono",nullable = true,length = 15, unique = true)
     private String telefono;
 
-    @Column(name = "email",nullable = true,length = 100)
+    @Column(name = "email",nullable = true,length = 100, unique = true)
     private String email;
 
     @Column(name = "password",nullable = true,length = 64)
