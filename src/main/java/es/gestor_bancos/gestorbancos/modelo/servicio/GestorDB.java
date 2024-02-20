@@ -28,11 +28,6 @@ public class GestorDB implements IGestorDB {
  * * * * * * * * * * * * * * * * * *
  * * * * * * * * * * * * * * * * * */
 
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/bancos";
-    private static final String USER = "J";
-    private static final String PASSWORD = "";
-    private static Connection conn;
-
     @Autowired
     private UsuarioRepository usuarios;
     
@@ -51,35 +46,6 @@ public class GestorDB implements IGestorDB {
  * *                       * *
  * * * * * * * * * * * * * * *
  * * * * * * * * * * * * * * */
-
-
-    // Este método inicia la conexión con la base de datos
-    public void conectar() {
-
-        try {
-
-            conn = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
-
-        } catch (SQLException e) {
-
-            crearDB();
-
-        }
-
-    }
-
-    // Este método finaliza la conexión con la base de datos
-    public void desconectar(){
-
-        try {
-
-            conn.close();
-
-        } catch (Exception e) {
-
-        }
-
-    }
 
 
 
@@ -230,50 +196,6 @@ public class GestorDB implements IGestorDB {
  * * * * * * * * * * * * * *
  * * * * * * * * * * * * * */
 
-    // Este método crea la base de datos junto a todas sus tablas si no existen
-    private void crearDB() {
-
-        try {
-
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306", USER, PASSWORD);
-            
-            Statement statement = conn.createStatement();
-
-            String createDatabaseQuery = "CREATE DATABASE IF NOT EXISTS bancos;";
-
-            statement.executeUpdate(createDatabaseQuery);
-    
-            statement.execute("USE bancos;");
-    
-            crearTablas(statement);
-
-            insertarDatos();
-            
-            conectar();
-
-            statement.close();
-    
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-
-        }
-
-    }
-
-    // Este método crea las tablas de la base de datos si no existen
-    private void crearTablas(Statement statement) throws SQLException {
-
-        crearTablaBancos(statement);
-   
-        empezarACrearTablaUsuarios(statement);
-   
-        crearTablaCuentas(statement);
-   
-        terminarDeCrearTablaUsuarios(statement);
-
-    }
-
     // Este método inserta datos de prueba en las tablas
     public void insertarDatos() {
 
@@ -284,61 +206,6 @@ public class GestorDB implements IGestorDB {
         insertarCuentas();
 
         agregarCuentasBizumUsuarios();
-
-    }
-
-    // Este método crea la tabla "bancos" de la base de datos si no existe
-    private void crearTablaBancos(Statement statement) throws SQLException {
-
-        String createBancosTableQuery = "CREATE TABLE IF NOT EXISTS bancos (" +
-                "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "nombre VARCHAR(50)" +
-                ");";
-
-        statement.executeUpdate(createBancosTableQuery);
-
-    }
-
-    // Este método crea la tabla "usuarios" de la base de datos si no existe
-    private void empezarACrearTablaUsuarios(Statement statement) throws SQLException {
-
-        String createUsuariosTableQuery = "CREATE TABLE IF NOT EXISTS usuarios (" +
-                "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "nombre VARCHAR(50)," +
-                "apellidos VARCHAR(100)," +
-                "telefono VARCHAR(15) UNIQUE," +
-                "email VARCHAR(100) UNIQUE," +
-                "password VARCHAR(64)" +
-                ");";
-
-        statement.executeUpdate(createUsuariosTableQuery);
-
-    }
-
-    // Este método crea la tabla "cuentas" de la base de datos si no existe
-    private void crearTablaCuentas(Statement statement) throws SQLException {
-
-        String createCuentasTableQuery = "CREATE TABLE IF NOT EXISTS cuentas (" +
-                "id INT AUTO_INCREMENT PRIMARY KEY," +
-                "dinero DOUBLE PRECISION," +
-                "usuario INT," +
-                "banco INT," +
-                "FOREIGN KEY (usuario) REFERENCES usuarios(id)," +
-                "FOREIGN KEY (banco) REFERENCES bancos(id)" +
-                ");";
-
-        statement.executeUpdate(createCuentasTableQuery);
-
-    }
-
-    // Este método añade a la tabla usuarios una nueva columna "cuenta_bizum" que es una clave foránea que indica la cuenta del usuario que tiene bizum
-    private void terminarDeCrearTablaUsuarios(Statement statement) throws SQLException {
-
-        String alterUsuariosTableQuery = "ALTER TABLE usuarios " +
-                "ADD COLUMN cuenta_bizum INT, " +
-                "ADD FOREIGN KEY (cuenta_bizum) REFERENCES cuentas(id);";
-
-        statement.executeUpdate(alterUsuariosTableQuery);
 
     }
 
