@@ -17,19 +17,19 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "nombre",nullable = true,length = 255)
+    @Column(name = "nombre",nullable = true,length = 50)
     private String nombre;
 
-    @Column(name = "apellidos",nullable = true,length = 255)
+    @Column(name = "apellidos",nullable = true,length = 100)
     private String apellidos;
 
-    @Column(name = "telefono",nullable = true,length = 255)
+    @Column(name = "telefono",nullable = true,length = 15)
     private String telefono;
 
-    @Column(name = "email",nullable = true,length = 15)
+    @Column(name = "email",nullable = true,length = 100)
     private String email;
 
-    @Column(name = "password",nullable = true,length = 255)
+    @Column(name = "password",nullable = true,length = 64)
     private String password;
 
     @ManyToOne

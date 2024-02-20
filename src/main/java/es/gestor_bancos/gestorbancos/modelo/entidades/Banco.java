@@ -15,7 +15,7 @@ public class Banco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "nombre", nullable = true,length = 255)
+    @Column(name = "nombre", nullable = true,length = 50)
     private String nombre;
 
     public Banco(){

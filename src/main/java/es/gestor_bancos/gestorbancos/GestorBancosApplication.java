@@ -22,8 +22,11 @@ public class GestorBancosApplication {
 
 		GestorDB gestorDB = contexto.getBean(GestorDB.class);
 
-		gestorDB.conectar();
-		gestorDB.desconectar();
+		if (gestorDB.buscarUsuarioPorId(1) == null){
+
+			gestorDB.insertarDatos();
+			
+		}
 
 		String url = "http://localhost:8090";
 

@@ -275,7 +275,7 @@ public class GestorDB implements IGestorDB {
     }
 
     // Este método inserta datos de prueba en las tablas
-    private void insertarDatos() {
+    public void insertarDatos() {
 
         insertarBancos();
 

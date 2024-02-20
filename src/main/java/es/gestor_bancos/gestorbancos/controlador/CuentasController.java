@@ -231,7 +231,13 @@ public class CuentasController {
 
                 return "redirect:/cuentas/bizum/" + id;
 
-            } else {
+            } else if (receptor.getId() == usuario.getId()) {
+
+                redirectAttributes.addFlashAttribute("error", "No puedes hacerte un Bizum a ti mismo.");
+
+                return "redirect:/cuentas/bizum/" + id;
+
+            }else {
 
                 idReceptor = receptor.getId();
 
